@@ -50,6 +50,20 @@
 	
 	.title { text-align: left; }
 	
+	#paging > table  {
+		width: 60%;
+		margin: 0 auto;
+		td {
+			border: 1px solid black;
+			background-color: white;
+			color: black;
+			a {
+				display: block;				
+				text-decoration: none;
+			}
+		}
+	}
+	
 
 </style>
 
@@ -60,7 +74,7 @@
 	<main>
 		<%@include file="/WEB-INF/include/menuspaging.jsp" %>
 		
-	  <h2 class="h2"> ${ menu_name } 게시물 목록 </h2>
+	  <h2 class="h2"> ${ menu_name } 게시물 목록 (페이징) </h2>
 		<table id="list" class="table table-hover">
 			<tr>
 				<td>글 번호</td>
@@ -71,7 +85,7 @@
 			</tr>
 			<tr>
 				<td colspan="5">
-					[<a href="/Board/WriteForm?menu_id=${menu_id}">새 글 등록</a>]&nbsp;&nbsp;&nbsp;
+					[<a href="/BoardPaging/WriteForm?menu_id=${menu_id}&nowpage=${nowpage}">새 글 등록</a>]&nbsp;&nbsp;&nbsp;
 					[<a href="/">Home</a>]
 				</td>
 			</tr>
@@ -88,6 +102,9 @@
 			</tr>
 			</c:forEach>
 		</table>
+		
+		<%@include file="/WEB-INF/include/paging.jsp" %>
+		
 	</main>
 </body>
 </html>
