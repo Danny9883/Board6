@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+
+	* { 
+		margin:0; padding:0;
+		box-sizing: border-box; 
+		}
+		
+	main {
+		width: 80%;
+		margin: 0 auto;
+	}
+	
+	table, td, th {
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	
+	ul, li { list-style: none; }
+	
+	a       { text-decoration: none; color: #333; }
+	a:hover { text-decoration: underline; }
+	
+	h1, h2, h3 { margin: 15px 10px; }
+
+	.red { color: red; }
+
+	.menu {
+		td {
+			padding: 0px;
+			a {
+				display: block;
+				padding: 10px;
+				color: white;
+				background-color: black; 
+				&:hover, &.active {
+					text-decoration: none;
+					background-color: #04AA6D;
+					color: white;
+				}
+			}
+		}
+	}
+	
+	.h2 { margin: 15px; text-align: center; }
+	
+	
+	
+	
+	
