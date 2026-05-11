@@ -60,7 +60,7 @@
 	<main>
 		<%@include file="/WEB-INF/include/menuspaging.jsp" %>
 		
-	  <h2 class="h2"> ${ menu.menu_name } 게시물 목록 </h2>
+	  <h2 class="h2"> ${ menu_name } 게시물 목록 </h2>
 		<table id="list" class="table table-hover">
 			<tr>
 				<td>글 번호</td>
