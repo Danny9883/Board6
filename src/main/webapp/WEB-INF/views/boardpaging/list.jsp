@@ -99,7 +99,9 @@
 			<tr>
 				<td>${ board.idx } </td>
 				<td class="title">
-					<a href="/Board/View?idx=${board.idx}&menu_id=${board.menu_id}">${ board.title }</a>
+					<a href="/BoardPaging/View?idx=${board.idx}&menu_id=${board.menu_id}&nowpage=${nowpage}">
+					${ board.title }
+					</a>
 				</td>
 				<td>${ board.writer } </td>
 				<td>${ board.regdate } </td>

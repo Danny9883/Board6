@@ -34,7 +34,7 @@ public class BoardPagingController {
 		List<MenuDTO>  menuList =  menuMapper.getMenuList();
 		
 		// 게시물 목록 조회(페이징해서)
-		// 해당 메뉴의 자료갯수 : 
+		// 해당 메뉴의 자료갯수 : 조회된
 		int            totalCount    =  boardPagingMapper.count( boardDto,searchType,keyword );  // menu_id
 		System.out.println("totalCount:" + totalCount);
 		
@@ -90,8 +90,30 @@ public class BoardPagingController {
 	}
 	
 	
-	
-	
+	// /BoardPaging/View?idx=210&menu_id=MENU01&nowpage=1
+	@RequestMapping("/View")
+	public  ModelAndView  view( BoardDto boardDto, int nowpage ) {
+		
+		// 메뉴목록 조회
+		List<MenuDTO>  menuList  =  menuMapper.getMenuList();
+		
+		// idx 로 게시글 한 개 조회
+		BoardDto  board      = boardPagingMapper.getBoard( boardDto );
+		
+		String    menu_id    = boardDto.getMenu_id();
+		String    menu_name  = menuMapper.getMenuName(menu_id); 
+		
+		ModelAndView  mv   = new ModelAndView();
+		mv.setViewName("boardpaging/view");
+		mv.addObject("menuList", menuList);
+		
+		mv.addObject("menu_id", menu_id);
+		mv.addObject("menu_name", menu_name);
+		mv.addObject("nowpage", nowpage);
+		
+		mv.addObject("board", board);
+		return  mv;
+	}
 	
 	
 	// /BoardPaging/WriteForm?menu_id=MENU01&nowpage=1"

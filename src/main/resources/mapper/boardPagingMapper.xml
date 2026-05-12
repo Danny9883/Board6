@@ -47,11 +47,27 @@
 	  </where>
 	  ORDER  BY  IDX  DESC
 	  OFFSET  #{ offset }  ROWS  FETCH  NEXT  #{ numOfRows }  ROWS ONLY  
-	      
-	
 	
 	</select>
 	
+	
+	<!-- idx로 조회한 글 하나 -->
+	<select id="getBoard">
+	
+	SELECT
+	    IDX,
+	    MENU_ID,
+	    TITLE,
+	    CONTENT,
+	    WRITER,
+	    TO_CHAR(REGDATE, 'YYYY-MM-DD HH24:MI:SS') REGDATE,
+	    HIT
+	FROM
+	    BOARD
+	WHERE
+	    IDX = #{ idx }
+	
+	</select>
 
   
 </mapper>
