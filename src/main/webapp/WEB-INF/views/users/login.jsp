@@ -17,11 +17,11 @@
 		<form action="/Users/Login" method="post">
 		  <div class="mb-3">
 		    <label for="userid" class="form-label">아이디</label>
-		    <input type="text" class="form-control" name="userid" id="userid" required />
+		    <input type="text" class="form-control" name="userid" id="userid" value="admin" required  />
 		  </div>
 		  <div class="mb-3">
 		    <label for="passwd" class="form-label">비밀번호</label>
-		    <input type="password" class="form-control" name="passwd" id="passwd" required />
+		    <input type="password" class="form-control" name="passwd" id="passwd" value="1234" required />
 		  </div>
 		  <div>${ checkmsg }</div><br>
 		  <button type="submit" class="btn btn-primary" >로그인</button>

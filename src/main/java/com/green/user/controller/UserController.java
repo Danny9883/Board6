@@ -225,10 +225,13 @@ public class UserController {
 
 		HttpSession  session  =  request.getSession();
 		session.setAttribute("login", user);
+		
+		String  loc  = session.getAttribute("loc") + "";
+		
 		if( user == null)
 			return  "/users/login";
 		if( user.getPasswd().equals(userDto.getPasswd()) )
-			return  "redirect:/";
+			return  "redirect:"+loc;
 
 		return  "/users/login";
 	}

@@ -58,7 +58,7 @@
 		<a href="/Users/Logout">로그아웃</a><br>
 		</c:if>
 		<c:if test="${ sessionScope.login.userid eq null }">
-		<a href="/Users/LoginForm">로그인</a>
+		<a href="/BoardPaging/List?menu_id=MENU01&nowpage=1">로그인</a>
 		</c:if>
       
   </main>

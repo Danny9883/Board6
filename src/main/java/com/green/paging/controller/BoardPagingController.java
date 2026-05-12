@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.green.board.dto.BoardDto;
+import com.green.board.mapper.BoardMapper;
 import com.green.menus.dto.MenuDTO;
 import com.green.menus.mapper.MenuMapper;
 import com.green.paging.dto.Pagination;
@@ -23,6 +24,9 @@ public class BoardPagingController {
 	
 	@Autowired
 	private  BoardPagingMapper  boardPagingMapper;
+	
+	@Autowired
+	private  BoardMapper        boardMapper;
 	
 	
 	// /BoardPaging/List?menu_id=MENU01&nowpage=1
@@ -96,6 +100,9 @@ public class BoardPagingController {
 		
 		// 메뉴목록 조회
 		List<MenuDTO>  menuList  =  menuMapper.getMenuList();
+		
+		// 조회한 글 조회수 1 증가
+		boardMapper.incHit( boardDto );
 		
 		// idx 로 게시글 한 개 조회
 		BoardDto  board      = boardPagingMapper.getBoard( boardDto );
