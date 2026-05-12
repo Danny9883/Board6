@@ -22,7 +22,7 @@ public class SearchDto {
 	private  Pagination  pagination; // 페이지네이션 정보
 	
 	
-	// 생성자 : 초기값을 설정 
+	// 기본 생성자 : 초기값을 설정 
 	public  SearchDto() {
 		this.pageNo     = 1;
 		this.numOfRows  = 10;

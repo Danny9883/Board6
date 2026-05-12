@@ -10,37 +10,45 @@
 	    COUNT( IDX ) AS CNT
 	FROM
 	    BOARD
-	WHERE
-	    MENU_ID = #{ menu_id }
+  <where>
+    <if test="boardDto.menu_id != null and boardDto.menu_id != ''">
+      AND MENU_ID = #{ boardDto.menu_id }   
+    </if> 
+    <if test="searchType != null and searchType != '' 
+        and keyword != null and keyword != ''">
+      AND ${searchType}  Like '%' || #{ keyword } || '%'   
+    </if> 
+   
+  </where>
 	
 	</select>
 	
+
 	<!-- BoardPagingList -->
-	<select id="getBoardPagingList">
-	SELECT
+	<select  id="getBoardPagingList">
+	 SELECT
 	     IDX,
+	     MENU_ID,
 	     TITLE,
 	     WRITER,
 	     TO_CHAR(REGDATE, 'YYYY-MM-DD') REGDATE,
 	     HIT
-	  FROM
+	  FROM 
 	     BOARD
 	  <where>
-	    <if test="param1 != null and param1 != '' ">
-	     AND MENU_ID = #{ param1 }
-	    </if>
-	    <if test="param2 != null and param2 != '' ">
-	     AND TITLE = #{ param2 }
-	    </if>
-	    <if test="param3 != null and param3 != '' ">
-	     AND WRITER = #{ param3 }
-	    </if>
-	    <if test="param4 != null and param4 != '' ">
-	     AND CONTENT = #{ param4 }
-	    </if>
-		</where>	        
-	  ORDER BY  IDX  DESC
-	  OFFSET  #{param5} ROWS FETCH NEXT #{param6} ROWS ONLY 
+	    <if test="menu_id != null and menu_id != ''">
+	      AND MENU_ID = #{ menu_id }   
+	    </if> 
+	    <if test="searchType != null and searchType != '' 
+	        and keyword != null and keyword != ''">
+	      AND ${searchType}  Like '%' || #{ keyword } || '%'   
+	    </if> 
+	   
+	  </where>
+	  ORDER  BY  IDX  DESC
+	  OFFSET  #{ offset }  ROWS  FETCH  NEXT  #{ numOfRows }  ROWS ONLY  
+	      
+	
 	
 	</select>
 	
