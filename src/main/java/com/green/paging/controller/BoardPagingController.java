@@ -25,9 +25,6 @@ public class BoardPagingController {
 	@Autowired
 	private  BoardPagingMapper  boardPagingMapper;
 	
-	@Autowired
-	private  BoardMapper        boardMapper;
-	
 	
 	// /BoardPaging/List?menu_id=MENU01&nowpage=1
 	@RequestMapping("/List")
@@ -101,8 +98,8 @@ public class BoardPagingController {
 		// 메뉴목록 조회
 		List<MenuDTO>  menuList  =  menuMapper.getMenuList();
 		
-		// 조회한 글 조회수 1 증가
-		boardMapper.incHit( boardDto );
+		// idx 에 해당하는 글 조회수 1 증가
+		boardPagingMapper.incHit( boardDto );
 		
 		// idx 로 게시글 한 개 조회
 		BoardDto  board      = boardPagingMapper.getBoard( boardDto );
@@ -121,6 +118,48 @@ public class BoardPagingController {
 		mv.addObject("board", board);
 		return  mv;
 	}
+	
+	
+	// /BoardPaging/WriteForm?menu_id=MENU01&nowpage=1
+	@RequestMapping("/WriteForm")
+	public  ModelAndView  writeForm( BoardDto boardDto, int nowpage ) {
+		
+		// 메뉴 목록 조회
+		List<MenuDTO>  menuList  = menuMapper.getMenuList();
+		String         menu_id   = boardDto.getMenu_id();
+		String         menu_name = menuMapper.getMenuName(menu_id);
+		
+		
+		ModelAndView  mv  = new ModelAndView();
+		mv.setViewName("boardpaging/write");
+		mv.addObject("menuList",  menuList);
+		mv.addObject("menu_id",   menu_id);
+		mv.addObject("menu_name", menu_name);
+		mv.addObject("nowpage", nowpage);
+		return  mv;
+	}
+	
+	
+	// /BoardPaging/Write
+	// menu_id=MENU01, title=제목, writer=admin, content=내용
+	@RequestMapping("/Write")
+	public  ModelAndView  write( BoardDto boardDto , int nowpage) {
+		
+		// 새 글 저장 -> db 저장
+		boardPagingMapper.insertBoard( boardDto );
+		
+		String  menu_id  = boardDto.getMenu_id();
+		
+		// 목록으로 돌아가기
+		ModelAndView  mv  = new ModelAndView();
+		String        fmt = "redirect:/BoardPaging/List?menu_id=%s&nowpage=%d"; 
+		String        loc = String.format(fmt, menu_id, nowpage);
+		mv.setViewName(loc);
+		return  mv;
+	}
+	
+	
+	
 	
 	
 	// /BoardPaging/WriteForm?menu_id=MENU01&nowpage=1"

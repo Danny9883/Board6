@@ -49,6 +49,16 @@
 	  OFFSET  #{ offset }  ROWS  FETCH  NEXT  #{ numOfRows }  ROWS ONLY  
 	
 	</select>
+
+	
+	<!-- idx 의 조회수를 증가 -->
+	<update id="incHit">
+	
+	UPDATE  BOARD
+		SET   HIT = HIT + 1
+		WHERE IDX = ${ idx }
+	
+	</update>
 	
 	
 	<!-- idx로 조회한 글 하나 -->
@@ -68,6 +78,26 @@
 	    IDX = #{ idx }
 	
 	</select>
+	
+	
+	<!-- BoardPaging Insert -->
+	<insert id="insertBoard">
+	
+	INSERT INTO BOARD (
+    IDX,
+    MENU_ID,
+    TITLE,
+    CONTENT,
+    WRITER
+		) VALUES (
+		    (SELECT  NVL(MAX(IDX),0)+1 FROM BOARD) ,
+		    #{menu_id},
+		    #{title},
+		    #{content},
+		    #{writer}
+		)
+	
+	</insert>
 
   
 </mapper>
