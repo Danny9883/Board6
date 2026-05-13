@@ -218,22 +218,20 @@ public class UserController {
 	@RequestMapping("/Login")
 	public  String  login( UserDto userDto, 
 			HttpServletRequest request, Model model ) {
+		System.out.println(userDto);
 		
-		model.addAttribute("checkmsg", "아이디 혹은 비밀번호가 일치하지 않습니다.");
-		
-		UserDto      user     = userMapper.getUser(userDto);
+		UserDto      user     = userMapper.getLogin(userDto);
 
 		HttpSession  session  =  request.getSession();
 		session.setAttribute("login", user);
 		
-		String  loc  = session.getAttribute("loc") + "";
-		
-		if( user == null)
-			return  "/users/login";
-		if( user.getPasswd().equals(userDto.getPasswd()) )
-			return  "redirect:"+loc;
+		String  loc  = "";
+		if(session.getAttribute("loc") == null)
+			loc = "redirect:/";
+		else
+			loc = "redirect:" + session.getAttribute("loc").toString();
 
-		return  "/users/login";
+		return  loc;
 	}
 	
 	// 로그아웃  /Users/Logout

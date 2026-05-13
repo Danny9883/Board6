@@ -25,9 +25,17 @@
 
 	.red { color: red; }
 
-	.menu {
+	.menu, #paging {
 		td {
 			padding: 0px;
+			&:hover, &.active {
+					background-color: #04AA6D;
+					color: white;
+					a {
+						background-color: #04AA6D;
+						color: white;	
+					}
+			}
 			a {
 				display: block;
 				padding: 10px;
@@ -41,6 +49,7 @@
 			}
 		}
 	}
+	
 	
 	.h2 { margin: 15px; text-align: center; }
 	

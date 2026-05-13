@@ -22,8 +22,9 @@
 			
 			<c:forEach var="pagenum" begin="${ startnum }" end="${ endnum }" step="1">
 				<c:if test="${pagenum le totalpagecount }">
-				<td>
-					<a href="/BoardPaging/List?menu_id=${ menu_id }&nowpage=${ pagenum }&searchType=${searchType}&keyword=${keyword}">
+				<td class="${pagenum eq nowpage ? 'active' : '' }" >
+					<a href="/BoardPaging/List?menu_id=${ menu_id }&nowpage=${ pagenum }&searchType=${searchType}&keyword=${keyword}"
+					   class="${pagenum eq nowpage ? 'active' : '' }"  >
 					${ pagenum }
 					</a>
 				</td>

@@ -24,6 +24,8 @@ public interface UserMapper {
 
 	void updateUser2(Map<String, Object> map);
 
+	UserDto getLogin(UserDto userDto);
+
 
 
 

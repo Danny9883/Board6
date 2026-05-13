@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 
 <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 <link href="/css/common.css" rel="stylesheet" />
 
 </head>
@@ -54,14 +55,35 @@
 		<hr>
 		
 		<div>&nbsp;</div>
-		<c:if test="${ sessionScope.login.userid != null }">
-		<a href="/Users/Logout">로그아웃</a><br>
-		</c:if>
-		<c:if test="${ sessionScope.login.userid eq null }">
-		<a href="/BoardPaging/List?menu_id=MENU01&nowpage=1">로그인</a>
-		</c:if>
+		<c:choose>
+			<c:when test="${ sessionScope.login ne null }">
+				<a href="/Users/Logout" class="btn btn-primary">로그아웃</a><br>
+			</c:when>
+			<c:otherwise>
+				<a href="/Users/LoginForm" class="btn btn-primary">로그인</a>
+			</c:otherwise>
+		</c:choose>
+		
+		<br><div>
+			<input type="text"  id="num" value="1" />
+			<a href="https://www.nate.com" id="btnNate" class="btn btn-primary">click</a>
+		</div>
       
   </main>
+  
+  <script>
+  const  btnNateEl = document.querySelector('#btnNate')
+  const  numEl     = document.querySelector('#num')
+	  btnNateEl.onclick = function(e) {
+  		e.preventDefault()   // 기본이벤트 취소
+  		e.stopPropagation()  // 이벤트 버블링 방지
+  		if( numEl.value == '2' ) {
+  			location.href = this.href   // this.href == e.target.href
+  		}
+	  	
+	  }
+  
+  </script>
   
 </body>
 </html>

@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${ board.title }</title>
+<title>게시글 수정</title>
 <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 <link href="/css/common.css" rel="stylesheet" />
@@ -60,7 +60,7 @@
   #table1	tr:last-child >td {
 		background: white;
 		border: 1px solid black;
-		a { margin: 0px 15px; }
+		a, input[type="submit"] { margin: 0px 15px; }
 	}
 	
 	#table1 tr:first-of-type td {
@@ -76,13 +76,24 @@
   }
   
   #table1	tr:nth-of-type(4){
-  	height: 400px;
+  	height: 300px;
   	td {border-bottom: 1px solid black;}
-  	td:nth-of-type(2) {
-  			text-align: left;
-  			vertical-align: baseline;
-  		}
   }
+  
+ 	input[name="title"] {
+		width: 100%;
+	}
+	
+	textarea {
+		width: 100%;
+		height: 300px; 		
+	}
+	
+	input[name="title"], 
+	textarea {
+		padding: 5px;
+	}
+
 	
 	
 	.menu tr:first-of-type {
@@ -95,6 +106,7 @@
 	
 
 	
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
@@ -103,42 +115,45 @@
 <body>
 	<main>
 	<%@include file="/WEB-INF/include/menuspaging.jsp" %>
-		<h2 class="h2"><b id="mname"></b> 게시글 내용 보기</h2>
-		<table id="table1">
-			<tr>
-				<td>글 번호</td>
-				<td>${ board.idx }</td>
-				<td>조회수</td>
-				<td>${ board.hit }</td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td>${ board.writer }</td>
-				<td>작성일</td>
-				<td>${ board.regdate }</td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td colspan="3">${ board.title }</td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td colspan="3" >${ board.content }</td>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<a href="/BoardPaging/WriteForm?menu_id=${board.menu_id}&nowpage=${nowpage}" class="btn btn-outline-primary">새 글 쓰기</a>
-					<c:if test="${ sessionScope.login.userid eq board.writer or sessionScope.login.userid eq 'ADMIN' }">
-					<a href="/BoardPaging/UpdateForm?idx=${board.idx}&menu_id=${board.menu_id}&nowpage=${nowpage}" class="btn btn-warning" >수정</a>
-					<a href="/BoardPaging/Delete?idx=${board.idx}&menu_id=${board.menu_id}&nowpage=${nowpage}" class="btn btn-danger">삭제</a>
-					</c:if>
-					<a href="/BoardPaging/List?menu_id=${board.menu_id}&nowpage=${nowpage}" class="btn btn-info">글 목록</a>
-					<a href="/" class="btn btn-success">Home</a>
-				</td>
-			</tr>
-		</table>		
+		<h2 class="h2"><b id="mname"></b> 게시글 수정</h2>
+		<form action="/BoardPaging/Update" method="post">
+			<input type="hidden" name="idx" value="${ board.idx }"  />
+			<input type="hidden" name="menu_id" value="${ board.menu_id }"  />
+			<input type="hidden" name="nowpage" value="${ nowpage }"  />
+			<table id="table1">
+				<tr>
+					<td>글 번호</td>
+					<td>${ board.idx }</td>
+					<td>조회수</td>
+					<td>${ board.hit }</td>
+				</tr>
+				<tr>
+					<td>작성자</td>
+					<td>${ board.writer }</td>
+					<td>작성일</td>
+					<td>${ board.regdate }</td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td colspan="3"><input type="text" value="${ board.title }" name="title" required /></td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td colspan="3" ><textarea name="content" >${ board.content }</textarea></td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<input type="submit" value="수정" class="btn btn-warning" />
+						<a href="/BoardPaging/View?idx=${board.idx}&menu_id=${board.menu_id}&nowpage=${nowpage}" class="btn btn-info">이전</a>
+						<a href="/BoardPaging/List?menu_id=${board.menu_id}&nowpage=${nowpage}" class="btn btn-info">글 목록</a>
+						<a href="/" class="btn btn-success">Home</a>
+					</td>
+				</tr>
+			</table>		
+		</form>
 	
 	</main>
+	
 	
 	
 	

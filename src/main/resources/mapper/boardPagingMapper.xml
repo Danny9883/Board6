@@ -109,5 +109,15 @@
 	
 	</delete>
 
+
+	<!-- 게시글 수정 -->
+	<update id="updateBoard">
+	
+	UPDATE   BOARD
+	 SET     TITLE   = #{title},
+	         CONTENT = #{content}
+	 WHERE   IDX     = #{idx}
+	
+	</update>
   
 </mapper>
