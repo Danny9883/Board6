@@ -159,10 +159,30 @@ public class BoardPagingController {
 	}
 	
 	
+	// /BoardPaging/Delete?idx=20&menu_id=MENU01&nowpage=1
+	@RequestMapping("/Delete")
+	public  ModelAndView  delete( BoardDto boardDto, int nowpage ) {
+		
+		// idx 로 board 삭제
+		boardPagingMapper.deleteBoard( boardDto );
+		
+		// 삭제 후 목록으로 이동
+		String      menu_id   = boardDto.getMenu_id();
+		ModelAndView  mv      = new ModelAndView();
+		String        loc     = """
+				redirect:/BoardPaging/List?menu_id=%s&nowpage=%d
+				""".formatted(menu_id, nowpage); 
+		mv.setViewName( loc );
+		return  mv;
+	}
+	
+	
+	// /BoardPaging/UpdateForm?idx=1&menu_id=MENU01&nowpage=1
 	
 	
 	
-	// /BoardPaging/WriteForm?menu_id=MENU01&nowpage=1"
+	
+	
 	
 
 }
